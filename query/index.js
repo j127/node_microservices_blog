@@ -6,18 +6,35 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const posts = {};
+
 // logger
 app.use((req, _res, next) => {
     console.log(new Date(), req.method, req.url, req.body);
     next();
 });
 
-app.get("/posts", (req, res) => {
-    // TODO
+app.get("/posts", (_req, res) => {
+    res.posts(posts);
 });
 
-app.get("/events", (req, res) => {
-    // TODO
+app.post("/events", (req, res) => {
+    const { type, data } = req.body;
+
+    if (type === "PostCreated") {
+        const { id, title } = data;
+        posts[id] = { id, title, comments: [] };
+    }
+
+    if (type === "CommentCreated") {
+        const { id, content, postId } = data;
+        const post = posts[postId];
+        post.comments.push({ id, content });
+    }
+
+    console.log("[[query]] posts", posts);
+
+    res.send({});
 });
 
 const PORT = 4002;
