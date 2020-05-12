@@ -15,7 +15,7 @@ app.use((req, _res, next) => {
 });
 
 app.get("/posts", (_req, res) => {
-    res.posts(posts);
+    res.send(posts);
 });
 
 app.post("/events", (req, res) => {

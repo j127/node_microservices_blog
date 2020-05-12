@@ -16,7 +16,7 @@ app.use((req, _res, next) => {
 
 const posts = {};
 
-app.get("/posts", (req, res) => {
+app.get("/posts", (_req, res) => {
     res.send(posts);
 });
 
