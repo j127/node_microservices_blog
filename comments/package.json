@@ -6,9 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "keywords": [],
-    "author": "J. Cohen <hostelmarketing@gmail.com> (https://github.com/j127)",
-    "license": "ISC",
+    "license": "UNLICENSED",
     "dependencies": {
         "axios": "^0.19.2",
         "cors": "^2.8.5",
