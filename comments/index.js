@@ -9,17 +9,26 @@ app.use(bodyParser.json());
 
 const commentsByPostId = {};
 
+// logger
+app.use((req, _res, next) => {
+    console.log(new Date(), req.method, req.url, req.body);
+    console.log("commentsByPostId", commentsByPostId);
+    next();
+});
+
 app.get("/posts/:id/comments", (req, res) => {
-    res.send(commentsByPostId[req.params.id]) || [];
+    const { id } = req.params;
+    res.send(commentsByPostId[id]) || [];
 });
 
 app.post("/posts/:id/comments", (req, res) => {
     const commentId = randomBytes(4).toString("hex");
     const { content } = req.body;
+    const { id } = req.params;
 
-    const comments = commentsByPostId[req.params.id] || [];
+    const comments = commentsByPostId[id] || [];
     comments.push({ id: commentId, content });
-    commentsByPostId[req.params.id] = comments;
+    commentsByPostId[id] = comments;
     res.status(201).send(comments);
 });
 

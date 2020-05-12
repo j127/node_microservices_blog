@@ -7,6 +7,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// logger
+app.use((req, _res, next) => {
+    console.log(new Date(), req.method, req.url, req.body);
+    next();
+});
+
 const posts = {};
 
 app.get("/posts", (req, res) => {
