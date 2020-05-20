@@ -9,8 +9,27 @@ Express services:
 - `query`
 - `moderation`
 
-The event bus receives events to `/events` and broadcasts them to all the other services at their own `/events` routes. It's an example app before switching to NATS.
+## Notes
 
-**Example:** When a new blog post is created (React `POST`s to the posts service), that service sends an event object to the event bus of type `PostCreated` with the post data. The posts service then sends a `201` header back to the browser. The posts service listens for events, but doesn't do anything with them. Same with the comments service. A separate query service saves copies of created posts and comments. The React app _queries_ for data from the query service, but when creating new posts and comments, it `POST`s directly to the posts and comments services to create them. If either of the posts or comments service goes down, the React app will still work (read-only), because it's fetching data from the query service, not the posts or comments services.
+- `kubectl apply -f posts.yaml`
+- `kubestl get pods`
 
-`moderation` service added. It moderates posts with the word "orange".
+Running Kubernetes on Ubuntu:
+
+```text
+$ minikube start
+$ minikube -p minikube docker-env
+$ eval $(minikube -p minikube docker-env)
+$ kubectl get pods
+```
+
+Docker → Kubernetes:
+
+| Docker                                 | Kubernetes                            |
+|----------------------------------------|---------------------------------------|
+| `docker ps`                            | `kubectl get pods`                    |
+| `docker exec -it [container id] [cmd]` | `kubectl exec -it [pod_name] [cmd]`   |
+| `docker logs [container id]`           | `kubectl [pod_name]`                  |
+|                                        | `kubectl delete pod [pod_name]`       |
+|                                        | `kubectl apply -f [config file name]` |
+|                                        | `kubectl describe pod [pod_name]`     |
