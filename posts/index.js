@@ -47,5 +47,6 @@ app.post("/events", (req, res) => {
 
 const PORT = process.env.POSTS_PORT || 4000;
 app.listen(PORT, () => {
+    console.log("v55");
     console.log(`listening at http://localhost:${PORT}`);
 });
