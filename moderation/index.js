@@ -14,7 +14,7 @@ app.post("/events", async (req, res) => {
             ? "rejected"
             : "approved";
 
-        await axios.post("http://localhost:4005/events", {
+        await axios.post("http://event-bus-srv:4005/events", {
             type: "CommentModerated",
             data: {
                 id: data.id,
@@ -30,5 +30,5 @@ app.post("/events", async (req, res) => {
 
 const PORT = 4003;
 app.listen(PORT, () => {
-    console.log(`listening at http://localhost:${PORT}/`);
+    console.log(`listening on ${PORT}/`);
 });
