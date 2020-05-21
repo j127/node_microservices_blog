@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: posts-srv
+spec:
+    type: NodePort
+    selector:
+        # this selector matches the deployment file:
+        # spec → template → metadata → labels → app: posts
+        app: posts
+    ports:
+        - name: posts
+          protocol: TCP
+          # port is the port exposed on the NodePort service
+          port: 4000
+          # targetPort is the port exposed on the pod
+          targetPort: 4000
