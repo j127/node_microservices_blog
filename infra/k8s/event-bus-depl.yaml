@@ -2,35 +2,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: event-bus-depl
+  name: event-bus-depl
 spec:
-    # number of pods to run
-    replicas: 1
-    selector:
-        matchLabels:
-            app: event-bus
-    template:
-        metadata:
-            labels:
-                app: event-bus
-        spec:
-            containers:
-                - name: event-bus
-                  image: j127/ms_event-bus
+  # number of pods to run
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-bus
+  template:
+    metadata:
+      labels:
+        app: event-bus
+    spec:
+      containers:
+        - name: event-bus
+          image: j127/ms_event-bus
 
 # The dashes create another object in the same YAML file.
 ---
 apiVersion: v1
 kind: Service
 metadata:
-    name: event-bus-srv
+  name: event-bus-srv
 spec:
-    selector:
-        app: event-bus
-    # ClusterIP is the default, so the next line is optional.
-    type: ClusterIP
-    ports:
-        - name: event-bus
-          protocol: TCP
-          port: 4005
-          targetPort: 4005
+  selector:
+    app: event-bus
+  # ClusterIP is the default, so the next line is optional.
+  type: ClusterIP
+  ports:
+    - name: event-bus
+      protocol: TCP
+      port: 4005
+      targetPort: 4005
